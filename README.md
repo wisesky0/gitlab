@@ -1,10 +1,10 @@
-# @semantic-release/gitlab
+# wafful-node-package/gitlab
 
 [**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to publish a
 [GitLab release](https://docs.gitlab.com/ee/user/project/releases/).
 
-[![Build Status](https://github.com/semantic-release/gitlab/workflows/Test/badge.svg)](https://github.com/semantic-release/gitlab/actions?query=workflow%3ATest+branch%3Amaster) [![npm latest version](https://img.shields.io/npm/v/@semantic-release/gitlab/latest.svg)](https://www.npmjs.com/package/@semantic-release/gitlab)
-[![npm next version](https://img.shields.io/npm/v/@semantic-release/gitlab/next.svg)](https://www.npmjs.com/package/@semantic-release/gitlab)
+[![Build Status](https://github.com/wafful-node-package/gitlab/workflows/Test/badge.svg)](https://github.com/wafful-node-package/gitlab/actions?query=workflow%3ATest+branch%3Amaster) [![npm latest version](https://img.shields.io/npm/v/wafful-node-package/gitlab/latest.svg)](https://www.npmjs.com/package/wafful-node-package/gitlab)
+[![npm next version](https://img.shields.io/npm/v/wafful-node-package/gitlab/next.svg)](https://www.npmjs.com/package/wafful-node-package/gitlab)
 
 | Step               | Description                                                                                                                                         |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -16,7 +16,7 @@
 ## Install
 
 ```bash
-$ npm install @semantic-release/gitlab -D
+$ npm install wafful-node-package/gitlab -D
 ```
 
 ## Usage
@@ -30,7 +30,7 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
-      "@semantic-release/gitlab",
+      "wafful-node-package/gitlab",
       {
         "gitlabUrl": "https://custom.gitlab.com",
         "assets": [
@@ -88,7 +88,9 @@ If you need to bypass the proxy for some hosts, configure the `NO_PROXY` environ
 | `gitlabApiPathPrefix`     | The GitLab API prefix.                                                                                                                                                                                                                                                                                                     | `GL_PREFIX` or `GITLAB_PREFIX` environment variable or CI provided environment variables if running on [GitLab CI/CD](https://docs.gitlab.com/ee/ci) or `/api/v4`.      |
 | `assets`                  | An array of files to upload to the release. See [assets](#assets).                                                                                                                                                                                                                                                         | -                                                                                                                                                                       |
 | `milestones`              | An array of milestone titles to associate to the release. See [GitLab Release API](https://docs.gitlab.com/ee/api/releases/#create-a-release).                                                                                                                                                                             | -                                                                                                                                                                       |
-| `successComment`          | The comment to add to each Issue and Merge Request resolved by the release. See [successComment](#successComment).                                                                                                                                                                                                         | :tada: This issue has been resolved in version ${nextRelease.version} :tada:\n\nThe release is available on [GitLab release](gitlab_release_url)                        |
+| `successComment`          | The comment to add to each Issue and Merge Request resolved by the release. See [successComment](#successComment).                                                                                                                                                                                                         | :tada: This issue has been resolved in version ${nextRelease.version} :tada:
+
+The release is available on [GitLab release](gitlab_release_url)                        |
 | `successCommentCondition` | Use this as condition, when to comment on issues or merge requests. See [successCommentCondition](#successCommentCondition).                                                                                                                                                                                               | -                                                                                                                                                                       |
 | `failComment`             | The content of the issue created when a release fails. See [failComment](#failcomment).                                                                                                                                                                                                                                    | Friendly message with links to **semantic-release** documentation and support, with the list of errors that caused the release to fail.                                 |
 | `failTitle`               | The title of the issue created when a release fails.                                                                                                                                                                                                                                                                       | `The automated release is failing 🚨`                                                                                                                                   |
