@@ -43,7 +43,7 @@ test.serial("Throw SemanticReleaseError if invalid config", async (t) => {
     ...(
       await t.throwsAsync(
         t.context.m.verifyConditions(
-          { gitlabUrl: "https://gitlab.com/context" },
+          { gitlabUrl: "http://git.nucube.lguplus.co.kr/context" },
           { env, options, logger: t.context.logger }
         )
       )
@@ -61,7 +61,7 @@ test.serial("Publish a release", async (t) => {
   const repo = "test_repo";
   const env = { GL_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { branch: "master", repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { branch: "master", repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
 
   const gitlab = authenticate(env)
@@ -78,8 +78,8 @@ test.serial("Publish a release", async (t) => {
 
   const result = await t.context.m.publish({}, { env, nextRelease, options, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${nextRelease.gitTag}`);
-  t.deepEqual(t.context.log.args[0], ["Verify GitLab authentication (%s)", "https://gitlab.com/api/v4"]);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${nextRelease.gitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Verify GitLab authentication (%s)", "http://git.nucube.lguplus.co.kr/api/v4"]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlab.isDone());
 });
@@ -107,8 +107,8 @@ test.serial("Verify Github auth and release", async (t) => {
   await t.notThrowsAsync(t.context.m.verifyConditions({}, { env, options, logger: t.context.logger }));
   const result = await t.context.m.publish({}, { env, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${nextRelease.gitTag}`);
-  t.deepEqual(t.context.log.args[0], ["Verify GitLab authentication (%s)", "https://gitlab.com/api/v4"]);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${nextRelease.gitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Verify GitLab authentication (%s)", "http://git.nucube.lguplus.co.kr/api/v4"]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlab.isDone());
 });

@@ -24,7 +24,7 @@ test.serial("Post new issue if none exists yet", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = {};
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedFailTitle = encodeURIComponent("The automated release is failing 🚨");
@@ -35,44 +35,44 @@ test.serial("Post new issue if none exists yet", async (t) => {
         id: 2,
         iid: 2,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user/test_repo/issues/2",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/issues/2",
         title: "API should implemented authentication",
       },
     ])
     .post(`/projects/${encodedProjectPath}/issues`, {
       id: "test_user%2Ftest_repo",
-      description: `## :rotating_light: The automated release from the \`main\` branch failed. :rotating_light:
+      description: `## :rotating_light: \`main\` 브랜치에서의 자동 릴리스가 실패했습니다. :rotating_light:
 
-I recommend you give this issue a high priority, so other packages depending on you can benefit from your bug fixes and new features again.
+이 문제를 높은 우선순위로 처리하는 것을 권장합니다. 그래야 다른 패키지들이 당신의 버그 수정과 새로운 기능을 다시 사용할 수 있습니다.
 
-You can find below the list of errors reported by **semantic-release**. Each one of them has to be resolved in order to automatically publish your package. I'm sure you can fix this 💪.
+아래는 **semantic-release**에 의해 보고된 오류 목록입니다. 이들 각각은 자동으로 패키지를 게시하기 위해 해결되어야 합니다. 당신은 이 문제를 해결할 수 있을 것입니다 💪.
 
-Errors are usually caused by a misconfiguration or an authentication problem. With each error reported below you will find explanation and guidance to help you to resolve it.
+오류는 보통 잘못된 설정이나 인증 문제로 인해 발생합니다. 아래에 보고된 각 오류와 함께 이를 해결하기 위한 설명과 지침이 제공됩니다.
 
-Once all the errors are resolved, **semantic-release** will release your package the next time you push a commit to the \`main\` branch. You can also manually restart the failed CI job that runs **semantic-release**.
+모든 오류가 해결되면, **semantic-release**는 \`main\` 브랜치에 커밋을 푸시할 때 다음 번에 패키지를 릴리스할 것입니다. 또한 실패한 CI 작업을 수동으로 다시 시작할 수도 있습니다.
 
-If you are not sure how to resolve this, here are some links that can help you:
-- [Usage documentation](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/README.md)
-- [Frequently Asked Questions](https://github.com/semantic-release/semantic-release/blob/master/docs/support/FAQ.md)
-- [Support channels](https://github.com/semantic-release/semantic-release#get-help)
+해결 방법을 잘 모르겠다면, 다음 링크들이 도움이 될 수 있습니다:
+- [사용 설명서](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/blob/master/docs/usage/README.md)
+- [자주 묻는 질문](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/blob/master/docs/support/FAQ.md)
+- [지원 채널](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab#get-help)
 
-If those don't help, or if this issue is reporting something you think isn't right, you can always ask the humans behind **[semantic-release](https://github.com/semantic-release/semantic-release/issues/new)**.
+이들이 도움이 되지 않거나, 이 문제가 잘못된 것이라고 생각되면, 언제든지 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/issues/new)** 뒤에 있는 사람들에게 문의할 수 있습니다.
 
 ---
 
 ### An error occured
 
-Unfortunately this error doesn't have any additional information.
+ 안타깝게도 이 오류에 대한 추가 정보가 없습니다.
 
 ---
 
-Good luck with your project ✨
+프로젝트에 행운을 빕니다 ✨
 
-Your **[semantic-release](https://github.com/semantic-release/semantic-release)** bot :package: :rocket:`,
+당신의 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:`,
       labels: "semantic-release",
       title: "The automated release is failing 🚨",
     })
-    .reply(200, { id: 3, web_url: "https://gitlab.com/test_user/test_repo/-/issues/3" });
+    .reply(200, { id: 3, web_url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/issues/3" });
 
   await fail(pluginConfig, { env, options, branch, errors, logger: t.context.logger });
 
@@ -80,7 +80,7 @@ Your **[semantic-release](https://github.com/semantic-release/semantic-release)*
   t.deepEqual(t.context.log.args[0], [
     "Created issue #%d: %s.",
     3,
-    "https://gitlab.com/test_user/test_repo/-/issues/3",
+    "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/issues/3",
   ]);
 });
 
@@ -90,7 +90,7 @@ test.serial("Post comments to existing issue", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = {};
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedFailTitle = encodeURIComponent("The automated release is failing 🚨");
@@ -101,46 +101,46 @@ test.serial("Post comments to existing issue", async (t) => {
         id: 1,
         iid: 1,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user%2Ftest_repo/issues/1",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user%2Ftest_repo/issues/1",
         title: "The automated release is failing 🚨",
       },
       {
         id: 2,
         iid: 2,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user%2Ftest_repo/issues/2",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user%2Ftest_repo/issues/2",
         title: "API should implemented authentication",
       },
     ])
     .post(`/projects/1/issues/1/notes`, {
-      body: `## :rotating_light: The automated release from the \`main\` branch failed. :rotating_light:
+      body: `## :rotating_light: \`main\` 브랜치에서의 자동 릴리스가 실패했습니다. :rotating_light:
 
-I recommend you give this issue a high priority, so other packages depending on you can benefit from your bug fixes and new features again.
+이 문제를 높은 우선순위로 처리하는 것을 권장합니다. 그래야 다른 패키지들이 당신의 버그 수정과 새로운 기능을 다시 사용할 수 있습니다.
 
-You can find below the list of errors reported by **semantic-release**. Each one of them has to be resolved in order to automatically publish your package. I'm sure you can fix this 💪.
+아래는 **semantic-release**에 의해 보고된 오류 목록입니다. 이들 각각은 자동으로 패키지를 게시하기 위해 해결되어야 합니다. 당신은 이 문제를 해결할 수 있을 것입니다 💪.
 
-Errors are usually caused by a misconfiguration or an authentication problem. With each error reported below you will find explanation and guidance to help you to resolve it.
+오류는 보통 잘못된 설정이나 인증 문제로 인해 발생합니다. 아래에 보고된 각 오류와 함께 이를 해결하기 위한 설명과 지침이 제공됩니다.
 
-Once all the errors are resolved, **semantic-release** will release your package the next time you push a commit to the \`main\` branch. You can also manually restart the failed CI job that runs **semantic-release**.
+모든 오류가 해결되면, **semantic-release**는 \`main\` 브랜치에 커밋을 푸시할 때 다음 번에 패키지를 릴리스할 것입니다. 또한 실패한 CI 작업을 수동으로 다시 시작할 수도 있습니다.
 
-If you are not sure how to resolve this, here are some links that can help you:
-- [Usage documentation](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/README.md)
-- [Frequently Asked Questions](https://github.com/semantic-release/semantic-release/blob/master/docs/support/FAQ.md)
-- [Support channels](https://github.com/semantic-release/semantic-release#get-help)
+해결 방법을 잘 모르겠다면, 다음 링크들이 도움이 될 수 있습니다:
+- [사용 설명서](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/blob/master/docs/usage/README.md)
+- [자주 묻는 질문](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/blob/master/docs/support/FAQ.md)
+- [지원 채널](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab#get-help)
 
-If those don't help, or if this issue is reporting something you think isn't right, you can always ask the humans behind **[semantic-release](https://github.com/semantic-release/semantic-release/issues/new)**.
+이들이 도움이 되지 않거나, 이 문제가 잘못된 것이라고 생각되면, 언제든지 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/issues/new)** 뒤에 있는 사람들에게 문의할 수 있습니다.
 
 ---
 
 ### An error occured
 
-Unfortunately this error doesn't have any additional information.
+ 안타깝게도 이 오류에 대한 추가 정보가 없습니다.
 
 ---
 
-Good luck with your project ✨
+프로젝트에 행운을 빕니다 ✨
 
-Your **[semantic-release](https://github.com/semantic-release/semantic-release)** bot :package: :rocket:`,
+당신의 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:`,
     })
     .reply(200);
 
@@ -158,7 +158,7 @@ test.serial("Post comments to existing issue with custom template", async (t) =>
     failTitle: "Semantic Release Failure",
   };
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedFailTitle = encodeURIComponent("Semantic Release Failure");
@@ -169,14 +169,14 @@ test.serial("Post comments to existing issue with custom template", async (t) =>
         id: 1,
         iid: 1,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user%2Ftest_repo/issues/1",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user%2Ftest_repo/issues/1",
         title: "Semantic Release Failure",
       },
       {
         id: 2,
         iid: 2,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user%2Ftest_repo/issues/2",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user%2Ftest_repo/issues/2",
         title: "API should implemented authentication",
       },
     ])
@@ -199,7 +199,7 @@ test.serial("Does not post comments when failTitle and failComment are both set 
     failTitle: false,
   };
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const gitlab = authenticate(env);
 
@@ -217,7 +217,7 @@ test.serial("Does not post comments when failTitle is set to false", async (t) =
     failTitle: false,
   };
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const gitlab = authenticate(env);
 
@@ -235,7 +235,7 @@ test.serial("Does not post comments when failComment is set to false", async (t)
     failTitle: "Semantic Release Failure",
   };
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const gitlab = authenticate(env);
 
@@ -250,7 +250,7 @@ test.serial("Does not post comments when failCommentCondition disables it", asyn
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = { failCommentCondition: "<% return false; %>" };
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedFailTitle = encodeURIComponent("The automated release is failing 🚨");
@@ -261,7 +261,7 @@ test.serial("Does not post comments when failCommentCondition disables it", asyn
         id: 2,
         iid: 2,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user/test_repo/issues/2",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/issues/2",
         title: "API should implemented authentication",
       },
     ]);
@@ -277,7 +277,7 @@ test.serial("Does not post comments on existing issues when failCommentCondition
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = { failCommentCondition: "<% return !issue; %>" };
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedFailTitle = encodeURIComponent("The automated release is failing 🚨");
@@ -288,14 +288,14 @@ test.serial("Does not post comments on existing issues when failCommentCondition
         id: 1,
         iid: 1,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user%2Ftest_repo/issues/1",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user%2Ftest_repo/issues/1",
         title: "The automated release is failing 🚨",
       },
       {
         id: 2,
         iid: 2,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user%2Ftest_repo/issues/2",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user%2Ftest_repo/issues/2",
         title: "API should implemented authentication",
       },
     ]);
@@ -314,7 +314,7 @@ test.serial("Post new issue if none exists yet with disabled comment on existing
     failCommentCondition: "<% return !issue; %>",
   };
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedFailTitle = encodeURIComponent("The automated release is failing 🚨");
@@ -325,7 +325,7 @@ test.serial("Post new issue if none exists yet with disabled comment on existing
         id: 2,
         iid: 2,
         project_id: 1,
-        web_url: "https://gitlab.com/test_user/test_repo/issues/2",
+        web_url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/issues/2",
         title: "API should implemented authentication",
       },
     ])
@@ -335,7 +335,7 @@ test.serial("Post new issue if none exists yet with disabled comment on existing
       labels: "semantic-release",
       title: "The automated release is failing 🚨",
     })
-    .reply(200, { id: 3, web_url: "https://gitlab.com/test_user/test_repo/-/issues/3" });
+    .reply(200, { id: 3, web_url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/issues/3" });
 
   await fail(pluginConfig, { env, options, branch, errors, logger: t.context.logger });
 
@@ -343,7 +343,7 @@ test.serial("Post new issue if none exists yet with disabled comment on existing
   t.deepEqual(t.context.log.args[0], [
     "Created issue #%d: %s.",
     3,
-    "https://gitlab.com/test_user/test_repo/-/issues/3",
+    "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/issues/3",
   ]);
 });
 
@@ -353,7 +353,7 @@ test.serial("Does not post comments when failCommentCondition is set to false", 
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = { failCommentCondition: false };
   const branch = { name: "main" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const errors = [{ message: "An error occured" }];
   const gitlab = authenticate(env);
 

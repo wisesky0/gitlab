@@ -25,7 +25,7 @@ test.serial("Publish a release", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = {};
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const gitlab = authenticate(env)
@@ -40,7 +40,7 @@ test.serial("Publish a release", async (t) => {
 
   const result = await publish(pluginConfig, { env, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlab.isDone());
 });
@@ -51,7 +51,7 @@ test.serial("Publish a release with templated path", async (t) => {
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token", FIXTURE: "upload" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const generic = { path: "${env.FIXTURE}.txt", filepath: "/upload.txt" };
@@ -69,7 +69,7 @@ test.serial("Publish a release with templated path", async (t) => {
         links: [
           {
             name: "upload.txt",
-            url: `https://gitlab.com${uploaded.full_path}`,
+            url: `http://git.nucube.lguplus.co.kr${uploaded.full_path}`,
             filepath: "/upload.txt",
           },
         ],
@@ -82,8 +82,8 @@ test.serial("Publish a release with templated path", async (t) => {
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
-  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `https://gitlab.com${uploaded.full_path}`]);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `http://git.nucube.lguplus.co.kr${uploaded.full_path}`]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlab.isDone());
 });
@@ -94,7 +94,7 @@ test.serial("Publish a release with assets", async (t) => {
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const uploaded = {
@@ -111,7 +111,7 @@ test.serial("Publish a release with assets", async (t) => {
         links: [
           {
             name: uploaded.alt,
-            url: `https://gitlab.com${uploaded.full_path}`,
+            url: `http://git.nucube.lguplus.co.kr${uploaded.full_path}`,
           },
         ],
       },
@@ -123,8 +123,8 @@ test.serial("Publish a release with assets", async (t) => {
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
-  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `https://gitlab.com${uploaded.full_path}`]);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `http://git.nucube.lguplus.co.kr${uploaded.full_path}`]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
   t.true(gitlab.isDone());
@@ -136,7 +136,7 @@ test.serial("Publish a release with generics", async (t) => {
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body", version: "1.0.0" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const encodedVersion = encodeURIComponent(nextRelease.version);
@@ -144,7 +144,7 @@ test.serial("Publish a release with generics", async (t) => {
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
   const encodedLabel = encodeURIComponent(generic.label);
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedProjectPath}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const expectedUrl = `http://git.nucube.lguplus.co.kr/api/v4/projects/${encodedProjectPath}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedProjectPath}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -169,7 +169,7 @@ test.serial("Publish a release with generics", async (t) => {
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Uploaded file: %s (%s)", expectedUrl, uploaded.file.url]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
@@ -182,7 +182,7 @@ test.serial("Publish a release with generics and external storage provider (http
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body", version: "1.0.0" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const encodedVersion = encodeURIComponent(nextRelease.version);
@@ -190,7 +190,7 @@ test.serial("Publish a release with generics and external storage provider (http
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
   const encodedLabel = encodeURIComponent(generic.label);
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedProjectPath}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const expectedUrl = `http://git.nucube.lguplus.co.kr/api/v4/projects/${encodedProjectPath}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedProjectPath}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -215,7 +215,7 @@ test.serial("Publish a release with generics and external storage provider (http
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Uploaded file: %s (%s)", expectedUrl, uploaded.file.url]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
@@ -228,7 +228,7 @@ test.serial("Publish a release with generics and external storage provider (http
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body", version: "1.0.0" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const encodedVersion = encodeURIComponent(nextRelease.version);
@@ -236,7 +236,7 @@ test.serial("Publish a release with generics and external storage provider (http
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
   const encodedLabel = encodeURIComponent(generic.label);
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedProjectPath}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const expectedUrl = `http://git.nucube.lguplus.co.kr/api/v4/projects/${encodedProjectPath}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedProjectPath}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -261,7 +261,7 @@ test.serial("Publish a release with generics and external storage provider (http
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Uploaded file: %s (%s)", expectedUrl, uploaded.file.url]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
@@ -274,7 +274,7 @@ test.serial("Publish a release with generics and external storage provider (ftp)
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body", version: "1.0.0" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const encodedVersion = encodeURIComponent(nextRelease.version);
@@ -282,7 +282,7 @@ test.serial("Publish a release with generics and external storage provider (ftp)
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
   const encodedLabel = encodeURIComponent(generic.label);
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedProjectPath}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const expectedUrl = `http://git.nucube.lguplus.co.kr/api/v4/projects/${encodedProjectPath}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedProjectPath}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -307,7 +307,7 @@ test.serial("Publish a release with generics and external storage provider (ftp)
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Uploaded file: %s (%s)", expectedUrl, uploaded.file.url]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
@@ -320,7 +320,7 @@ test.serial("Publish a release with asset type and permalink", async (t) => {
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const uploaded = {
@@ -345,7 +345,7 @@ test.serial("Publish a release with asset type and permalink", async (t) => {
         links: [
           {
             name: uploaded.alt,
-            url: `https://gitlab.com${uploaded.full_path}`,
+            url: `http://git.nucube.lguplus.co.kr${uploaded.full_path}`,
             link_type: uploaded.link_type,
             filepath: uploaded.filepath,
           },
@@ -359,8 +359,8 @@ test.serial("Publish a release with asset type and permalink", async (t) => {
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
-  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `https://gitlab.com${uploaded.full_path}`]);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `http://git.nucube.lguplus.co.kr${uploaded.full_path}`]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
   t.true(gitlab.isDone());
@@ -372,7 +372,7 @@ test.serial("Publish a release with an asset with a template label", async (t) =
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body", version: "1.0.0" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const uploaded = {
@@ -396,7 +396,7 @@ test.serial("Publish a release with an asset with a template label", async (t) =
         links: [
           {
             name: "file-v1.0.0.css",
-            url: `https://gitlab.com${uploaded.full_path}`,
+            url: `http://git.nucube.lguplus.co.kr${uploaded.full_path}`,
             link_type: "other",
             filepath: "/dist/file.css",
           },
@@ -410,8 +410,8 @@ test.serial("Publish a release with an asset with a template label", async (t) =
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
-  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `https://gitlab.com${uploaded.full_path}`]);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `http://git.nucube.lguplus.co.kr${uploaded.full_path}`]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
   t.true(gitlab.isDone());
@@ -425,7 +425,7 @@ test.serial("Publish a release (with an link) with variables", async (t) => {
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body", version: "1.0.0" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const uploaded = {
@@ -437,7 +437,7 @@ test.serial("Publish a release (with an link) with variables", async (t) => {
     {
       label: `README-v\${nextRelease.version}.md`,
       type: `\${process.env.TYPE}`,
-      url: `https://gitlab.com/gitlab-org/gitlab/-/blob/master/README-v\${nextRelease.version}.md`,
+      url: `http://git.nucube.lguplus.co.kr/gitlab-org/gitlab/-/blob/master/README-v\${nextRelease.version}.md`,
     },
     {
       label: "file.css",
@@ -454,12 +454,12 @@ test.serial("Publish a release (with an link) with variables", async (t) => {
         links: [
           {
             name: "README-v1.0.0.md",
-            url: "https://gitlab.com/gitlab-org/gitlab/-/blob/master/README-v1.0.0.md",
+            url: "http://git.nucube.lguplus.co.kr/gitlab-org/gitlab/-/blob/master/README-v1.0.0.md",
             link_type: "other",
           },
           {
             name: "file.css",
-            url: `https://gitlab.com${uploaded.full_path}`,
+            url: `http://git.nucube.lguplus.co.kr${uploaded.full_path}`,
             link_type: "other",
             filepath: "/dist/file.css",
           },
@@ -473,8 +473,8 @@ test.serial("Publish a release (with an link) with variables", async (t) => {
     .reply(200, uploaded);
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
-  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `https://gitlab.com${uploaded.full_path}`]);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `http://git.nucube.lguplus.co.kr${uploaded.full_path}`]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
   t.true(gitlab.isDone());
@@ -489,7 +489,7 @@ test.serial("Publish a release with a milestone", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = { milestones: ["1.2.3"] };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const gitlab = authenticate(env)
@@ -505,7 +505,7 @@ test.serial("Publish a release with a milestone", async (t) => {
 
   const result = await publish(pluginConfig, { env, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlab.isDone());
 });
@@ -516,7 +516,7 @@ test.serial("Publish a release with array of missing assets", async (t) => {
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const emptyDirectory = tempy.directory();
@@ -532,7 +532,7 @@ test.serial("Publish a release with array of missing assets", async (t) => {
     .reply(200);
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlab.isDone());
 });
@@ -543,7 +543,7 @@ test.serial("Publish a release with one asset and custom label", async (t) => {
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const uploaded = {
@@ -560,7 +560,7 @@ test.serial("Publish a release with one asset and custom label", async (t) => {
         links: [
           {
             name: assetLabel,
-            url: `https://gitlab.com${uploaded.full_path}`,
+            url: `http://git.nucube.lguplus.co.kr${uploaded.full_path}`,
           },
         ],
       },
@@ -572,8 +572,8 @@ test.serial("Publish a release with one asset and custom label", async (t) => {
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
-  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `https://gitlab.com${uploaded.full_path}`]);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s", `http://git.nucube.lguplus.co.kr${uploaded.full_path}`]);
   t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlabUpload.isDone());
   t.true(gitlab.isDone());
@@ -585,7 +585,7 @@ test.serial("Publish a release with missing release notes", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = {};
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const gitlab = authenticate(env)
@@ -600,7 +600,7 @@ test.serial("Publish a release with missing release notes", async (t) => {
 
   const result = await publish(pluginConfig, { env, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlab.isDone());
 });
@@ -611,13 +611,13 @@ test.serial("Publish a release with an asset link", async (t) => {
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const link = {
     label: "README.md",
     type: "other",
-    url: "https://gitlab.com/gitlab-org/gitlab/-/blob/master/README.md",
+    url: "http://git.nucube.lguplus.co.kr/gitlab-org/gitlab/-/blob/master/README.md",
   };
   const assets = [link];
   const gitlab = authenticate(env)
@@ -628,7 +628,7 @@ test.serial("Publish a release with an asset link", async (t) => {
         links: [
           {
             name: "README.md",
-            url: `https://gitlab.com/gitlab-org/gitlab/-/blob/master/README.md`,
+            url: `http://git.nucube.lguplus.co.kr/gitlab-org/gitlab/-/blob/master/README.md`,
             link_type: "other",
           },
         ],
@@ -638,7 +638,7 @@ test.serial("Publish a release with an asset link", async (t) => {
 
   const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
 
-  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.is(result.url, `http://git.nucube.lguplus.co.kr/${owner}/${repo}/-/releases/${encodedGitTag}`);
   t.deepEqual(t.context.log.args[0], ["Published GitLab release: %s", nextRelease.gitTag]);
   t.true(gitlab.isDone());
 });
@@ -649,7 +649,7 @@ test.serial("Publish a release with error response", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = {};
   const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body" };
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
   const gitlab = authenticate(env)

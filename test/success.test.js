@@ -25,8 +25,8 @@ test.serial("Post comments to related issues and MRs", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = {};
   const nextRelease = { version: "1.0.0" };
-  const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const commits = [{ hash: "abcdef" }, { hash: "fedcba" }];
   const gitlab = authenticate(env)
@@ -47,13 +47,13 @@ test.serial("Post comments to related issues and MRs", async (t) => {
     .get(`/projects/300/merge_requests/3/closes_issues`)
     .reply(200, [])
     .post(`/projects/100/merge_requests/1/notes`, {
-      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](https://gitlab.com/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](https://github.com/semantic-release/semantic-release)** bot :package: :rocket:",
+      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
     })
     .reply(200)
     .post(`/projects/300/merge_requests/3/notes`)
     .reply(200)
     .post(`/projects/100/issues/11/notes`, {
-      body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](https://gitlab.com/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](https://github.com/semantic-release/semantic-release)** bot :package: :rocket:",
+      body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
     })
     .reply(200)
     .post(`/projects/100/issues/13/notes`)
@@ -72,8 +72,8 @@ test.serial("Post comments with custom template", async (t) => {
     successComment: `nextRelease: \${nextRelease.version} commits: \${commits.length} releases: \${releases.length} \${issue ? "issue" : "MR"} ID: \${issue ? issue.iid : mergeRequest.iid}`,
   };
   const nextRelease = { version: "1.0.0" };
-  const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const commits = [{ hash: "abcdef" }];
   const gitlab = authenticate(env)
@@ -95,17 +95,17 @@ test.serial("Post comments with custom template", async (t) => {
   t.true(gitlab.isDone());
 });
 
-test.serial("Post comments for multiple releases", async (t) => {
+test.serial.only("Post comments for multiple releases", async (t) => {
   const owner = "test_user";
   const repo = "test_repo";
-  const env = { GITLAB_TOKEN: "gitlab_token" };
+  const env = { GITLAB_TOKEN: "gitlab_token", CI_PARENT_PATH: "/eswa/wafful-for-msa/wafful-parent" };
   const pluginConfig = {};
   const nextRelease = { version: "1.0.0" };
   const releases = [
-    { name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" },
+    { name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" },
     { name: "Other release" },
   ];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const commits = [{ hash: "abcdef" }];
   const gitlab = authenticate(env)
@@ -114,9 +114,11 @@ test.serial("Post comments for multiple releases", async (t) => {
     .get(`/projects/100/merge_requests/1/closes_issues`)
     .reply(200, [])
     .post(`/projects/100/merge_requests/1/notes`, {
-      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on:\n- [GitLab release](https://gitlab.com/test_user/test_repo/-/releases/v1.0.0)\n- `Other release`\n\nYour **[semantic-release](https://github.com/semantic-release/semantic-release)** bot :package: :rocket:",
+      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on:\n- [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0)\n- `Other release`\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
     })
-    .reply(200);
+    .reply(200)
+    .post(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issues`)
+    .reply(200)
 
   await success(pluginConfig, { env, options, nextRelease, logger: t.context.logger, commits, releases });
 
@@ -129,8 +131,8 @@ test.serial("Does not post comments when successComment is set to false", async 
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const nextRelease = { version: "1.0.0" };
-  const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const commits = [{ hash: "abcdef" }, { hash: "fedcba" }];
   const gitlab = authenticate(env);
 
@@ -145,8 +147,8 @@ test.serial("Does not post comments when successCommentCondition disables it", a
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = { successCommentCondition: "<% return false; %>" };
   const nextRelease = { version: "1.0.0" };
-  const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const commits = [{ hash: "abcdef" }, { hash: "fedcba" }];
   const gitlab = authenticate(env)
@@ -178,8 +180,8 @@ test.serial("Does not post comments on issues when successCommentCondition disab
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = { successCommentCondition: "<% return !issue; %>" };
   const nextRelease = { version: "1.0.0" };
-  const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const commits = [{ hash: "abcdef" }, { hash: "fedcba" }];
   const gitlab = authenticate(env)
@@ -200,7 +202,7 @@ test.serial("Does not post comments on issues when successCommentCondition disab
     .get(`/projects/300/merge_requests/3/closes_issues`)
     .reply(200, [])
     .post(`/projects/100/merge_requests/1/notes`, {
-      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](https://gitlab.com/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](https://github.com/semantic-release/semantic-release)** bot :package: :rocket:",
+      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
     })
     .reply(200)
     .post(`/projects/300/merge_requests/3/notes`)
@@ -217,8 +219,8 @@ test.serial("Only posts comments on issues which are found using the successComm
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = { successCommentCondition: "<% return issue.labels?.includes('semantic-release-relevant'); %>" };
   const nextRelease = { version: "1.0.0" };
-  const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const commits = [{ hash: "abcdef" }, { hash: "fedcba" }];
   const gitlab = authenticate(env)
@@ -239,7 +241,7 @@ test.serial("Only posts comments on issues which are found using the successComm
     .get(`/projects/300/merge_requests/3/closes_issues`)
     .reply(200, [])
     .post(`/projects/100/issues/13/notes`, {
-      body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](https://gitlab.com/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](https://github.com/semantic-release/semantic-release)** bot :package: :rocket:",
+      body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
     })
     .reply(200);
 
@@ -256,8 +258,8 @@ test.serial(
     const env = { GITLAB_TOKEN: "gitlab_token" };
     const pluginConfig = { successCommentCondition: "<% return !mergeRequest; %>" };
     const nextRelease = { version: "1.0.0" };
-    const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-    const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+    const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+    const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
     const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
     const commits = [{ hash: "abcdef" }, { hash: "fedcba" }];
     const gitlab = authenticate(env)
@@ -278,7 +280,7 @@ test.serial(
       .get(`/projects/300/merge_requests/3/closes_issues`)
       .reply(200, [])
       .post(`/projects/100/issues/11/notes`, {
-        body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](https://gitlab.com/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](https://github.com/semantic-release/semantic-release)** bot :package: :rocket:",
+        body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
       })
       .reply(200)
       .post(`/projects/100/issues/13/notes`)
@@ -296,8 +298,8 @@ test.serial("Does not post comments when successCommentCondition is set to false
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = { successCommentCondition: false };
   const nextRelease = { version: "1.0.0" };
-  const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const commits = [{ hash: "abcdef" }, { hash: "fedcba" }];
   const gitlab = authenticate(env);
 
@@ -312,8 +314,8 @@ test.serial("Retries requests when rate limited", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
   const pluginConfig = {};
   const nextRelease = { version: "1.0.0" };
-  const releases = [{ name: RELEASE_NAME, url: "https://gitlab.com/test_user/test_repo/-/releases/v1.0.0" }];
-  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const releases = [{ name: RELEASE_NAME, url: "http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0" }];
+  const options = { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` };
   const encodedProjectPath = encodeURIComponent(`${owner}/${repo}`);
   const commits = [{ hash: "abcdef" }];
   const retryLimit = 3;

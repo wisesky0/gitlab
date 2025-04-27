@@ -5,8 +5,8 @@ import resolveConfig from "../lib/resolve-config.js";
 
 const defaultOptions = {
   gitlabToken: undefined,
-  gitlabUrl: "https://gitlab.com",
-  gitlabApiUrl: urlJoin("https://gitlab.com", "/api/v4"),
+  gitlabUrl: "http://git.nucube.lguplus.co.kr",
+  gitlabApiUrl: urlJoin("http://git.nucube.lguplus.co.kr", "/api/v4"),
   assets: undefined,
   milestones: undefined,
   successComment: undefined,
@@ -18,6 +18,7 @@ const defaultOptions = {
   assignee: undefined,
   proxy: {},
   retryLimit: 3,
+  parentPath: undefined,
 };
 
 test("Returns user config", (t) => {
@@ -346,7 +347,7 @@ test("Returns user config via environment variables with HTTP_PROXY and non-matc
 test("Returns default config", (t) => {
   const gitlabToken = "TOKEN";
   const gitlabApiPathPrefix = "/api/prefix";
-  const gitlabUrl = "https://gitlab.com";
+  const gitlabUrl = "http://git.nucube.lguplus.co.kr";
 
   t.deepEqual(resolveConfig({}, { env: { GL_TOKEN: gitlabToken } }), {
     ...defaultOptions,
@@ -356,13 +357,13 @@ test("Returns default config", (t) => {
   t.deepEqual(resolveConfig({ gitlabApiPathPrefix }, { env: { GL_TOKEN: gitlabToken } }), {
     ...defaultOptions,
     gitlabToken,
-    gitlabApiUrl: urlJoin("https://gitlab.com", gitlabApiPathPrefix),
+    gitlabApiUrl: urlJoin("http://git.nucube.lguplus.co.kr", gitlabApiPathPrefix),
   });
 
   t.deepEqual(resolveConfig({ gitlabUrl }, { env: { GL_TOKEN: gitlabToken } }), {
     ...defaultOptions,
     gitlabToken,
-    gitlabUrl: "https://gitlab.com",
+    gitlabUrl: "http://git.nucube.lguplus.co.kr",
     gitlabApiUrl: urlJoin(gitlabUrl, "/api/v4"),
   });
 });
@@ -502,8 +503,8 @@ test("Ignore GitLab CI/CD environment variables if not running on GitLab CI/CD",
     {
       ...defaultOptions,
       gitlabToken,
-      gitlabUrl: "https://gitlab.com",
-      gitlabApiUrl: urlJoin("https://gitlab.com", "/api/v4"),
+      gitlabUrl: "http://git.nucube.lguplus.co.kr",
+      gitlabApiUrl: urlJoin("http://git.nucube.lguplus.co.kr", "/api/v4"),
     }
   );
 });

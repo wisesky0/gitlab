@@ -14,7 +14,7 @@ export default function (
   env = {},
   {
     gitlabToken = env.GL_TOKEN || env.GITLAB_TOKEN || 'GL_TOKEN',
-    gitlabUrl = env.GL_URL || env.GITLAB_URL || 'https://gitlab.com',
+    gitlabUrl = env.GL_URL || env.GITLAB_URL || 'http://git.nucube.lguplus.co.kr',
     gitlabApiPathPrefix = typeof env.GL_PREFIX === 'string'
       ? env.GL_PREFIX
       : null || typeof env.GITLAB_PREFIX === 'string'

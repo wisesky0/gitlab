@@ -339,7 +339,7 @@ test.serial('Throw SemanticReleaseError if "assets" option is not a String or an
   } = await t.throwsAsync(
     verify(
       { assets },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -363,7 +363,7 @@ test.serial('Throw SemanticReleaseError if "assets" option is an Array with inva
   } = await t.throwsAsync(
     verify(
       { assets },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -387,7 +387,7 @@ test.serial('Throw SemanticReleaseError if "assets" option is an Object missing 
   } = await t.throwsAsync(
     verify(
       { assets },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -413,7 +413,7 @@ test.serial(
     } = await t.throwsAsync(
       verify(
         { assets },
-        { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+        { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
       )
     );
 
@@ -431,7 +431,7 @@ test("Throw SemanticReleaseError for missing GitLab token", async (t) => {
   } = await t.throwsAsync(
     verify(
       {},
-      { env, options: { repositoryUrl: "https://gitlab.com/semantic-release/gitlab.git" }, logger: t.context.logger }
+      { env, options: { repositoryUrl: "http://git.nucube.lguplus.co.kr/semantic-release/gitlab.git" }, logger: t.context.logger }
     )
   );
 
@@ -449,7 +449,7 @@ test.serial("Throw SemanticReleaseError for invalid token", async (t) => {
   const {
     errors: [error, ...errors],
   } = await t.throwsAsync(
-    verify({}, { env, options: { repositoryUrl: `https://gitlab.com:${owner}/${repo}.git` }, logger: t.context.logger })
+    verify({}, { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr:${owner}/${repo}.git` }, logger: t.context.logger })
   );
 
   t.is(errors.length, 0);
@@ -460,7 +460,7 @@ test.serial("Throw SemanticReleaseError for invalid token", async (t) => {
 
 test.serial("Throw SemanticReleaseError for invalid repositoryUrl", async (t) => {
   const env = { GITLAB_TOKEN: "gitlab_token" };
-  const gitlabUrl = "https://gitlab.com/context";
+  const gitlabUrl = "http://git.nucube.lguplus.co.kr/context";
 
   const {
     errors: [error, ...errors],
@@ -478,7 +478,7 @@ test.serial("Throw SemanticReleaseError for invalid repositoryUrl", async (t) =>
 
 test.serial("Throw AggregateError if multiple verification fails", async (t) => {
   const env = {};
-  const gitlabUrl = "https://gitlab.com/context";
+  const gitlabUrl = "http://git.nucube.lguplus.co.kr/context";
   const assets = 42;
   const {
     errors: [invalidAssetsError, invalidUrlError, noTokenError, ...errors],
@@ -509,7 +509,7 @@ test.serial("Throw SemanticReleaseError if token doesn't have the push permissio
   const {
     errors: [error, ...errors],
   } = await t.throwsAsync(
-    verify({}, { env, options: { repositoryUrl: `https://gitlab.com:${owner}/${repo}.git` }, logger: t.context.logger })
+    verify({}, { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr:${owner}/${repo}.git` }, logger: t.context.logger })
   );
 
   t.is(errors.length, 0);
@@ -533,7 +533,7 @@ test.serial("Throw SemanticReleaseError if token doesn't have the pull permissio
       {},
       {
         env,
-        options: { repositoryUrl: `https://gitlab.com:${owner}/${repo}.git`, dryRun: true },
+        options: { repositoryUrl: `http://git.nucube.lguplus.co.kr:${owner}/${repo}.git`, dryRun: true },
         logger: t.context.logger,
       }
     )
@@ -554,7 +554,7 @@ test.serial("Throw SemanticReleaseError if the repository doesn't exist", async 
   const {
     errors: [error, ...errors],
   } = await t.throwsAsync(
-    verify({}, { env, options: { repositoryUrl: `https://gitlab.com:${owner}/${repo}.git` }, logger: t.context.logger })
+    verify({}, { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr:${owner}/${repo}.git` }, logger: t.context.logger })
   );
 
   t.is(errors.length, 0);
@@ -570,7 +570,7 @@ test.serial("Throw error if GitLab API return any other errors", async (t) => {
   const gitlab = authenticate(env).get(`/projects/${owner}%2F${repo}`).times(3).reply(500);
 
   const error = await t.throwsAsync(
-    verify({}, { env, options: { repositoryUrl: `https://gitlab.com:${owner}/${repo}.git` }, logger: t.context.logger })
+    verify({}, { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr:${owner}/${repo}.git` }, logger: t.context.logger })
   );
 
   t.is(error.response.statusCode, 500);
@@ -591,7 +591,7 @@ test.serial('Throw SemanticReleaseError if "failTitle" option is not a String', 
   } = await t.throwsAsync(
     verify(
       { failTitle },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -615,7 +615,7 @@ test.serial('Throw SemanticReleaseError if "failTitle" option is an empty String
   } = await t.throwsAsync(
     verify(
       { failTitle },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -639,7 +639,7 @@ test.serial('Throw SemanticReleaseError if "failTitle" option is a whitespace St
   } = await t.throwsAsync(
     verify(
       { failTitle },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -663,7 +663,7 @@ test.serial('Throw SemanticReleaseError if "failComment" option is not a String'
   } = await t.throwsAsync(
     verify(
       { failComment },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -687,7 +687,7 @@ test.serial('Throw SemanticReleaseError if "failComment" option is an empty Stri
   } = await t.throwsAsync(
     verify(
       { failComment },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -711,7 +711,7 @@ test.serial('Throw SemanticReleaseError if "failComment" option is a whitespace 
   } = await t.throwsAsync(
     verify(
       { failComment },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -733,7 +733,7 @@ test.serial('Does not throw SemanticReleaseError if "labels" option is a valid S
   await t.notThrowsAsync(
     verify(
       { labels },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -752,7 +752,7 @@ test.serial('Does not throw SemanticReleaseError if "labels" option is "false"',
   await t.notThrowsAsync(
     verify(
       { labels },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -773,7 +773,7 @@ test.serial('Throw SemanticReleaseError if "labels" option is not a String', asy
   } = await t.throwsAsync(
     verify(
       { labels },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -797,7 +797,7 @@ test.serial('Throw SemanticReleaseError if "labels" option is an empty String', 
   } = await t.throwsAsync(
     verify(
       { labels },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -821,7 +821,7 @@ test.serial('Throw SemanticReleaseError if "labels" option is a whitespace Strin
   } = await t.throwsAsync(
     verify(
       { labels },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -845,7 +845,7 @@ test.serial('Throw SemanticReleaseError if "assignee" option is not a String', a
   } = await t.throwsAsync(
     verify(
       { assignee },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -869,7 +869,7 @@ test.serial('Throw SemanticReleaseError if "assignee" option is an empty String'
   } = await t.throwsAsync(
     verify(
       { assignee },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -893,7 +893,7 @@ test.serial('Throw SemanticReleaseError if "assignee" option is a whitespace Str
   } = await t.throwsAsync(
     verify(
       { assignee },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
 
@@ -916,7 +916,7 @@ test.serial("Does not throw an error for option without validator", async (t) =>
       {
         someOption: 42,
       },
-      { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+      { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
     )
   );
   t.true(gitlab.isDone());
@@ -928,7 +928,7 @@ test.serial(
     const owner = "test_user";
     const repo = "test_repo";
     const env = { GITLAB_TOKEN: "gitlab_token" };
-    const assets = [{ url: "https://gitlab.com/gitlab-org/gitlab/-/blob/master/README.md" }];
+    const assets = [{ url: "http://git.nucube.lguplus.co.kr/gitlab-org/gitlab/-/blob/master/README.md" }];
     const gitlab = authenticate(env)
       .get(`/projects/${owner}%2F${repo}`)
       .reply(200, { permissions: { project_access: { access_level: 40 } } });
@@ -936,7 +936,7 @@ test.serial(
     await t.notThrowsAsync(
       verify(
         { assets },
-        { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+        { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
       )
     );
     t.true(gitlab.isDone());
@@ -957,7 +957,7 @@ test.serial(
     await t.notThrowsAsync(
       verify(
         { assets },
-        { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+        { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
       )
     );
     t.true(gitlab.isDone());
@@ -980,7 +980,7 @@ test.serial(
     } = await t.throwsAsync(
       verify(
         { assets },
-        { env, options: { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` }, logger: t.context.logger }
+        { env, options: { repositoryUrl: `http://git.nucube.lguplus.co.kr/${owner}/${repo}.git` }, logger: t.context.logger }
       )
     );
     t.is(error.name, "SemanticReleaseError");
