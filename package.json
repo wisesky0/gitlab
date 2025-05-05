@@ -1,8 +1,8 @@
 {
   "name": "@wafful-node-package/gitlab",
   "description": "semantic-release plugin to publish a GitLab release",
-  "version": "0.0.0-development",
-  "author": "서현호 (wisesky1@lgupluspartners.co.kr)",
+  "version": "0.1.0",
+  "author": "Hyunho Seo(wisesky0@gmail.com)",
   "type": "module",
   "ava": {
     "files": [
@@ -19,6 +19,7 @@
     "debug": "^4.0.0",
     "dir-glob": "^3.0.0",
     "escape-string-regexp": "^5.0.0",
+    "fast-xml-parser": "^5.2.2",
     "formdata-node": "^6.0.3",
     "fs-extra": "^11.0.0",
     "globby": "^14.0.0",
@@ -26,7 +27,8 @@
     "hpagent": "^1.0.0",
     "lodash-es": "^4.17.21",
     "parse-url": "^9.0.0",
-    "url-join": "^4.0.0"
+    "url-join": "^4.0.0",
+    "yaml": "^2.7.1"
   },
   "devDependencies": {
     "ava": "6.2.0",
