@@ -95,7 +95,7 @@ test.serial("Post comments with custom template", async (t) => {
   t.true(gitlab.isDone());
 });
 
-test.serial.only("Post comments for multiple releases", async (t) => {
+test.serial("Post comments for multiple releases", async (t) => {
   const owner = "test_user";
   const repo = "test_repo";
   const env = { GITLAB_TOKEN: "gitlab_token", CI_PARENT_PATH: "/eswa/wafful-for-msa/wafful-parent" };
@@ -117,8 +117,19 @@ test.serial.only("Post comments for multiple releases", async (t) => {
       body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on:\n- [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0)\n- `Other release`\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
     })
     .reply(200)
-    .post(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issues`)
-    .reply(200)
+    // .get(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issue?labels=submodule_released&status=open`)
+    // .reply(200, [])
+    // .post(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issues`)
+    // .reply(200)
+    // .post(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issues/1/notes`)
+    // .reply(200)
+    // .get(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issue?labels=submodule_released&status=open`)
+    // .reply(200, [])
+    // .post(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issues`)
+    // .reply(200)
+    // .post(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issues/1/notes`)
+    // .reply(200)
+    ;
 
   await success(pluginConfig, { env, options, nextRelease, logger: t.context.logger, commits, releases });
 

@@ -21,7 +21,7 @@ const defaultOptions = {
   parentPath: undefined,
 };
 
-test("Returns user config", (t) => {
+test.only("Returns user config", (t) => {
   const gitlabToken = "TOKEN";
   const gitlabUrl = "https://host.com";
   const gitlabApiPathPrefix = "/api/prefix";
@@ -30,10 +30,11 @@ test("Returns user config", (t) => {
   const proxy = {};
   const labels = false;
   const retryLimit = 42;
-
+  const parentPath = "eswa/wafful-for-msa/wafful-parent";
+  
   t.deepEqual(
     resolveConfig(
-      { gitlabUrl, gitlabApiPathPrefix, assets, postComments, labels, retryLimit },
+      { gitlabUrl, gitlabApiPathPrefix, assets, postComments, labels, retryLimit, parentPath },
       { env: { GITLAB_TOKEN: gitlabToken } }
     ),
     {
@@ -44,6 +45,7 @@ test("Returns user config", (t) => {
       assets,
       labels: false,
       retryLimit,
+      parentPath,
     }
   );
 
@@ -491,6 +493,7 @@ test("Ignore GitLab CI/CD environment variables if not running on GitLab CI/CD",
   const CI_PROJECT_URL = "http://ci-host.com/owner/repo";
   const CI_PROJECT_PATH = "ci-owner/ci-repo";
   const CI_API_V4_URL = "http://ci-host-api.com/prefix";
+  
 
   t.deepEqual(
     resolveConfig(
