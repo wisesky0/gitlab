@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../maven-semantic-release"
+		},
+		{
+			"path": "../semantic-release"
+		},
+		{
+			"path": "../../../gitlabspace/h2s-parent"
+		}
+	]
+}

@@ -47,13 +47,13 @@ test.serial("Post comments to related issues and MRs", async (t) => {
     .get(`/projects/300/merge_requests/3/closes_issues`)
     .reply(200, [])
     .post(`/projects/100/merge_requests/1/notes`, {
-      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
+      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module)** bot :package: :rocket:",
     })
     .reply(200)
     .post(`/projects/300/merge_requests/3/notes`)
     .reply(200)
     .post(`/projects/100/issues/11/notes`, {
-      body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
+      body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module)** bot :package: :rocket:",
     })
     .reply(200)
     .post(`/projects/100/issues/13/notes`)
@@ -98,7 +98,7 @@ test.serial("Post comments with custom template", async (t) => {
 test.serial("Post comments for multiple releases", async (t) => {
   const owner = "test_user";
   const repo = "test_repo";
-  const env = { GITLAB_TOKEN: "gitlab_token", CI_PARENT_PATH: "/eswa/wafful-for-msa/wafful-parent" };
+  const env = { GITLAB_TOKEN: "gitlab_token", CI_PARENT_ID_OR_PATH: "/eswa/wafful-for-msa/wafful-parent" };
   const pluginConfig = {};
   const nextRelease = { version: "1.0.0" };
   const releases = [
@@ -114,7 +114,7 @@ test.serial("Post comments for multiple releases", async (t) => {
     .get(`/projects/100/merge_requests/1/closes_issues`)
     .reply(200, [])
     .post(`/projects/100/merge_requests/1/notes`, {
-      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on:\n- [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0)\n- `Other release`\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
+      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on:\n- [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0)\n- `Other release`\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module)** bot :package: :rocket:",
     })
     .reply(200)
     // .get(`/projects/%2Feswa%2Fwafful-for-msa%2Fwafful-parent/issue?labels=submodule_released&status=open`)
@@ -213,7 +213,7 @@ test.serial("Does not post comments on issues when successCommentCondition disab
     .get(`/projects/300/merge_requests/3/closes_issues`)
     .reply(200, [])
     .post(`/projects/100/merge_requests/1/notes`, {
-      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
+      body: ":tada: This MR is included in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module)** bot :package: :rocket:",
     })
     .reply(200)
     .post(`/projects/300/merge_requests/3/notes`)
@@ -252,7 +252,7 @@ test.serial("Only posts comments on issues which are found using the successComm
     .get(`/projects/300/merge_requests/3/closes_issues`)
     .reply(200, [])
     .post(`/projects/100/issues/13/notes`, {
-      body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
+      body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module)** bot :package: :rocket:",
     })
     .reply(200);
 
@@ -291,7 +291,7 @@ test.serial(
       .get(`/projects/300/merge_requests/3/closes_issues`)
       .reply(200, [])
       .post(`/projects/100/issues/11/notes`, {
-        body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:",
+        body: ":tada: This issue has been resolved in version 1.0.0 :tada:\n\nThe release is available on [GitLab release](http://git.nucube.lguplus.co.kr/test_user/test_repo/-/releases/v1.0.0).\n\nYour **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module)** bot :package: :rocket:",
       })
       .reply(200)
       .post(`/projects/100/issues/13/notes`)

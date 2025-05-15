@@ -18,9 +18,9 @@ export default function (
     gitlabApiPathPrefix = typeof env.GL_PREFIX === 'string'
       ? env.GL_PREFIX
       : null || typeof env.GITLAB_PREFIX === 'string'
-      ? env.GITLAB_PREFIX
-      : null || '/api/v4',
+        ? env.GITLAB_PREFIX
+        : null || '/api/v4',
   } = {}
 ) {
-  return nock(urlJoin(gitlabUrl, gitlabApiPathPrefix), {reqheaders: {'Private-Token': gitlabToken}});
+  return nock(urlJoin(gitlabUrl, gitlabApiPathPrefix), { reqheaders: { 'Private-Token': gitlabToken } });
 };

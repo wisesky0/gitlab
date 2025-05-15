@@ -52,11 +52,11 @@ test.serial("Post new issue if none exists yet", async (t) => {
 모든 오류가 해결되면, **semantic-release**는 \`main\` 브랜치에 커밋을 푸시할 때 다음 번에 패키지를 릴리스할 것입니다. 또한 실패한 CI 작업을 수동으로 다시 시작할 수도 있습니다.
 
 해결 방법을 잘 모르겠다면, 다음 링크들이 도움이 될 수 있습니다:
-- [사용 설명서](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/blob/master/docs/usage/README.md)
-- [자주 묻는 질문](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/blob/master/docs/support/FAQ.md)
-- [지원 채널](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab#get-help)
+- [사용 설명서](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module/blob/master/docs/usage/README.md)
+- [자주 묻는 질문](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module/blob/master/docs/support/FAQ.md)
+- [지원 채널](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module#get-help)
 
-이들이 도움이 되지 않거나, 이 문제가 잘못된 것이라고 생각되면, 언제든지 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/issues/new)** 뒤에 있는 사람들에게 문의할 수 있습니다.
+이들이 도움이 되지 않거나, 이 문제가 잘못된 것이라고 생각되면, 언제든지 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module/issues/new)** 뒤에 있는 사람들에게 문의할 수 있습니다.
 
 ---
 
@@ -68,7 +68,7 @@ test.serial("Post new issue if none exists yet", async (t) => {
 
 프로젝트에 행운을 빕니다 ✨
 
-당신의 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:`,
+당신의 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module)** bot :package: :rocket:`,
       labels: "semantic-release",
       title: "The automated release is failing 🚨",
     })
@@ -124,11 +124,11 @@ test.serial("Post comments to existing issue", async (t) => {
 모든 오류가 해결되면, **semantic-release**는 \`main\` 브랜치에 커밋을 푸시할 때 다음 번에 패키지를 릴리스할 것입니다. 또한 실패한 CI 작업을 수동으로 다시 시작할 수도 있습니다.
 
 해결 방법을 잘 모르겠다면, 다음 링크들이 도움이 될 수 있습니다:
-- [사용 설명서](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/blob/master/docs/usage/README.md)
-- [자주 묻는 질문](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/blob/master/docs/support/FAQ.md)
-- [지원 채널](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab#get-help)
+- [사용 설명서](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module/blob/master/docs/usage/README.md)
+- [자주 묻는 질문](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module/blob/master/docs/support/FAQ.md)
+- [지원 채널](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module#get-help)
 
-이들이 도움이 되지 않거나, 이 문제가 잘못된 것이라고 생각되면, 언제든지 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab/issues/new)** 뒤에 있는 사람들에게 문의할 수 있습니다.
+이들이 도움이 되지 않거나, 이 문제가 잘못된 것이라고 생각되면, 언제든지 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module/issues/new)** 뒤에 있는 사람들에게 문의할 수 있습니다.
 
 ---
 
@@ -140,7 +140,7 @@ test.serial("Post comments to existing issue", async (t) => {
 
 프로젝트에 행운을 빕니다 ✨
 
-당신의 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-node-package/gitlab)** bot :package: :rocket:`,
+당신의 **[semantic-release](http://gitlab.nucube.lguplus.co.kr/eswa/wafful-for-msa/wafful-release/gitlab-module)** bot :package: :rocket:`,
     })
     .reply(200);
 

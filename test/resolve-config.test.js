@@ -18,7 +18,7 @@ const defaultOptions = {
   assignee: undefined,
   proxy: {},
   retryLimit: 3,
-  parentPath: undefined,
+  parentIdOrPath: undefined,
 };
 
 test.only("Returns user config", (t) => {
@@ -30,11 +30,11 @@ test.only("Returns user config", (t) => {
   const proxy = {};
   const labels = false;
   const retryLimit = 42;
-  const parentPath = "eswa/wafful-for-msa/wafful-parent";
+  const parentIdOrPath = "eswa/wafful-for-msa/wafful-parent";
   
   t.deepEqual(
     resolveConfig(
-      { gitlabUrl, gitlabApiPathPrefix, assets, postComments, labels, retryLimit, parentPath },
+      { gitlabUrl, gitlabApiPathPrefix, assets, postComments, labels, retryLimit, parentIdOrPath },
       { env: { GITLAB_TOKEN: gitlabToken } }
     ),
     {
@@ -45,7 +45,7 @@ test.only("Returns user config", (t) => {
       assets,
       labels: false,
       retryLimit,
-      parentPath,
+      parentIdOrPath,
     }
   );
 

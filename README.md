@@ -1,9 +1,9 @@
-# wafful-node-package/gitlab
+# wafful-release/gitlab-module
 
 [**semantic-release**](https://github.com/semantic-release/semantic-release) 플러그인으로 [GitLab 릴리스](https://docs.gitlab.com/ee/user/project/releases/)를 게시합니다.
 
-[![Build Status](https://github.com/wafful-node-package/gitlab/workflows/Test/badge.svg)](https://github.com/wafful-node-package/gitlab/actions?query=workflow%3ATest+branch%3Amaster) [![npm latest version](https://img.shields.io/npm/v/wafful-node-package/gitlab/latest.svg)](https://www.npmjs.com/package/wafful-node-package/gitlab)
-[![npm next version](https://img.shields.io/npm/v/wafful-node-package/gitlab/next.svg)](https://www.npmjs.com/package/wafful-node-package/gitlab)
+[![Build Status](https://github.com/wafful-release/gitlab-module/workflows/Test/badge.svg)](https://github.com/wafful-release/gitlab-module/actions?query=workflow%3ATest+branch%3Amaster) [![npm latest version](https://img.shields.io/npm/v/wafful-release/gitlab-module/latest.svg)](https://www.npmjs.com/package/wafful-release/gitlab-module)
+[![npm next version](https://img.shields.io/npm/v/wafful-release/gitlab-module/next.svg)](https://www.npmjs.com/package/wafful-release/gitlab-module)
 
 | 단계               | 설명                                                                                                                                         |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -15,7 +15,7 @@
 ## 설치
 
 ```bash
-$ npm install wafful-node-package/gitlab -D
+$ npm install wafful-release/gitlab-module -D
 ```
 
 ## 사용법
@@ -29,7 +29,7 @@ $ npm install wafful-node-package/gitlab -D
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
-      "wafful-node-package/gitlab",
+      "wafful-release/gitlab-module",
       {
         "gitlabUrl": "https://custom.gitlab.com",
         "assets": [
